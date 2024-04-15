@@ -43,14 +43,15 @@ class CreateUserView(generics.CreateAPIView):
     serializer_class = UserSerializer
 
 class LoginUserView(generics.RetrieveAPIView):
-    def get(self, request):
+    def post(self, request):
         login = request.data.get('username')
         password = request.data.get('password')
+        print(login, password)
         try:
             user = User.objects.filter(username = login).values()
             if user and user[0]["password"] == password:
                 return Response({'message': 'User logged successfully'})
             else:
-                return Response({'error': 'Wrong username or passowrd'})
+                return Response({'error': 'Wrong username or passoword'})
         except User.DoesNotExist:
             return Response({'error': 'User not found'})
