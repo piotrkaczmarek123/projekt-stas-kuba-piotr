@@ -30,4 +30,5 @@ yarn-error.log*
 /backend/backend/__pycache__
 /backend/notes/__pycache__
 /backend/notes/migrations/__pycache__
+/backend/mainpy/*
 
