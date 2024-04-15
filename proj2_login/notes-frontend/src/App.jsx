@@ -3,6 +3,7 @@ import UserForm from './user/UserForm';
 import NoteForm from './note/NoteForm';
 import NoteList from './note/NoteList';
 import axios from "axios";
+import LoginForm from './user/LoginForm';
 
 export const API_URL = "http://localhost:8000/api/";
 
@@ -44,8 +45,20 @@ function App() {
     }
   };
 
+  const loginUser = async (loginData) => {
+    try {
+      const response = await axios.post(API_URL + 'login-user', loginData);
+      console.log(loginData);
+      console.log('Login response: ', response.data);
+    } catch (error) {
+      console.log('Error logging user: ', error);
+    }
+  }
+
   return (
     <div>
+      <h1>Login User</h1>
+      <LoginForm loginUser={loginUser} />
       <h1>Add User</h1>
       <UserForm addUser={addUser} />
       <h1>Add Note</h1>
