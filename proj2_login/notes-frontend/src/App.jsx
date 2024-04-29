@@ -4,6 +4,7 @@ import UserForm from './user/UserForm';
 import NoteForm from './note/NoteForm';
 import NoteList from './note/NoteList';
 import LoginForm from './user/LoginForm';
+import Cookies from 'js-cookie';
 
 export const API_URL = "http://localhost:8000/api/";
 
@@ -52,6 +53,7 @@ function App() {
       if (response.status === 200) {
         setIsLoggedIn(true);
         setLoggedInUser(response.data);
+        Cookies.set('token', response.data.token);
       }
     } catch (error) {
       console.log('Error logging user: ', error);
