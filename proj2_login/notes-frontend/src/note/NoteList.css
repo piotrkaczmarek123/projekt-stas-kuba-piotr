@@ -1,0 +1,30 @@
+/* Styling for the NoteList component */
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+  }
+  
+  strong {
+    font-weight: bold;
+    color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  /* Hover effect for list items */
+  li:hover {
+    background-color: #e0e0e0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  

@@ -28,6 +28,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  flex-direction: column; /* Dodajemy kolumnowy układ dla elementów wewnątrz body */
 }
 
 h1 {
@@ -45,6 +46,7 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  margin: 0 10px; /* Dodajemy margines między przyciskami */
 }
 button:hover {
   border-color: #646cff;

@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import UserForm from './user/UserForm';
 import NoteForm from './note/NoteForm';
 import NoteList from './note/NoteList';
-import axios from "axios";
 import LoginForm from './user/LoginForm';
 
 export const API_URL = "http://localhost:8000/api/";
 
 function App() {
   const [notes, setNotes] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   useEffect(() => {
     const fetchNotes = async () => {
       try {
         const response = await axios.get(API_URL + 'notes');
         if (Array.isArray(response.data)) {
-            setNotes(response.data);
-          } else {
-              console.log("Response data: ", response.data);
-            console.error('Error: Notes data is not an array');
-          }
+          setNotes(response.data);
+        } else {
+          console.error('Error: Notes data is not an array');
+        }
       } catch (error) {
         console.error('Error fetching notes:', error);
       }
@@ -48,8 +49,10 @@ function App() {
   const loginUser = async (loginData) => {
     try {
       const response = await axios.post(API_URL + 'login-user', loginData);
-      console.log(loginData);
-      console.log('Login response: ', response.data);
+      if (response.status === 200) {
+        setIsLoggedIn(true);
+        setLoggedInUser(response.data);
+      }
     } catch (error) {
       console.log('Error logging user: ', error);
     }
@@ -57,13 +60,14 @@ function App() {
 
   return (
     <div>
-      <h1>Login User</h1>
-      <LoginForm loginUser={loginUser} />
-      <h1>Add User</h1>
-      <UserForm addUser={addUser} />
-      <h1>Add Note</h1>
-      <NoteForm addNote={addNote} apiUrl={API_URL} />
-      <NoteList apiUrl={API_URL} notes={notes}/>
+      {!isLoggedIn ? <LoginForm loginUser={loginUser} /> : <UserForm addUser={addUser} />}
+      {isLoggedIn && (
+        <div>
+          <h1>Add Note</h1>
+          <NoteForm addNote={addNote} apiUrl={API_URL} />
+          <NoteList notes={notes} loggedInUser={loggedInUser} />
+        </div>
+      )}
     </div>
   );
 }
